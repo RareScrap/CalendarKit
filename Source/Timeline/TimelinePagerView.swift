@@ -184,10 +184,10 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
     timeline.layoutAttributes = validEvents.map(EventLayoutAttributes.init)
   }
 
-  public func scrollToFirstEventIfNeeded() {
+  public func scrollToFirstEventIfNeeded(animated: Bool) {
     if autoScrollToFirstEvent {
       if let controller = currentTimeline {
-        controller.container.scrollToFirstEvent()
+        controller.container.scrollToFirstEvent(animated: animated)
       }
     }
   }
@@ -420,7 +420,7 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
                                                       completion: nil)
               
         self.pagingViewController.viewControllers?.first?.view.setNeedsLayout()
-        self.scrollToFirstEventIfNeeded()
+        self.scrollToFirstEventIfNeeded(animated: true)
         self.delegate?.timelinePager(timelinePager: self, didMoveTo: newDate)
       }
     }
@@ -466,7 +466,7 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
       let selectedDate = timelineContainerController.timeline.date
       delegate?.timelinePager(timelinePager: self, willMoveTo: selectedDate)
       state?.client(client: self, didMoveTo: selectedDate)
-      scrollToFirstEventIfNeeded()
+      scrollToFirstEventIfNeeded(animated: true)
       delegate?.timelinePager(timelinePager: self, didMoveTo: selectedDate)
     }
   }
