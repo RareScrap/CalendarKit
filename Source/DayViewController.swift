@@ -46,7 +46,7 @@ open class DayViewController: UIViewController, EventDataSource, DayViewDelegate
 
   open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    dayView.scrollToFirstEventIfNeeded()
+    dayView.scrollToFirstEventIfNeeded(animated: false)
   }
 
   open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -100,6 +100,9 @@ open class DayViewController: UIViewController, EventDataSource, DayViewDelegate
   }
 
   open func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
+  }
+    
+  public func dayViewDidScroll(dayView: DayView, diff: CGFloat) {
   }
   
   // MARK: - Editing

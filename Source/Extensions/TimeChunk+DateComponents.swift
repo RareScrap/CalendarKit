@@ -2,7 +2,7 @@ import Foundation
 import DateToolsSwift
 
 extension TimeChunk {
-  static func dateComponents(seconds: Int = 0,
+  public static func dateComponents(seconds: Int = 0,
                              minutes: Int = 0,
                              hours: Int = 0,
                              days: Int = 0,

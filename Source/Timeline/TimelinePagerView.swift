@@ -10,6 +10,7 @@ public protocol TimelinePagerViewDelegate: AnyObject {
   func timelinePager(timelinePager: TimelinePagerView, willMoveTo date: Date)
   func timelinePager(timelinePager: TimelinePagerView, didMoveTo  date: Date)
   func timelinePager(timelinePager: TimelinePagerView, didLongPressTimelineAt date: Date)
+  func timelinePagerDidScroll(timelinePager: TimelinePagerView, diff: CGFloat)
 
   // Editing
   func timelinePager(timelinePager: TimelinePagerView, didUpdate event: EventDescriptor)
@@ -152,6 +153,7 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     let offset = scrollView.contentOffset
     let diff = offset.y - initialContentOffset.y
+    delegate?.timelinePagerDidScroll(timelinePager: self, diff: diff)
     if let event = pendingEvent {
       var frame = event.frame
       frame.origin.y -= diff
@@ -183,6 +185,24 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
     timeline.appearance = self.timelineViewAppearance // TODO: is this a propper place for setting the appearance?
     timeline.layoutAttributes = validEvents.map(EventLayoutAttributes.init)
   }
+    
+//  public func updateTimeline(_ date: Date, events: [EventDescriptor]) {
+//    var timelineController = pagingViewController.viewControllers?.first {
+//      if let controller = $0 as? TimelineContainerController {
+//        return controller.timeline.date == date
+//      }
+//      
+//      return false
+//    } as? TimelineContainerController
+//    
+//    if (timelineController == nil) { return }
+//    
+//    let day = TimePeriod(beginning: date,
+//                         chunk: TimeChunk.dateComponents(days: 1))
+//    let validEvents = events.filter{$0.datePeriod.overlaps(with: day)}
+//    timelineController!.timeline.appearance = self.timelineViewAppearance // TODO: is this a propper place for setting the appearance?
+//    timelineController!.timeline.layoutAttributes = validEvents.map(EventLayoutAttributes.init)
+//  }
 
   public func scrollToFirstEventIfNeeded(animated: Bool) {
     if autoScrollToFirstEvent {

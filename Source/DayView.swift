@@ -11,6 +11,7 @@ public protocol DayViewDelegate: AnyObject {
   func dayView(dayView: DayView, willMoveTo date: Date)
   func dayView(dayView: DayView, didMoveTo  date: Date)
   func dayView(dayView: DayView, didUpdate event: EventDescriptor)
+  func dayViewDidScroll(dayView: DayView, diff: CGFloat)
 }
 
 public final class DayView: UIView, TimelinePagerViewDelegate {
@@ -175,6 +176,9 @@ public final class DayView: UIView, TimelinePagerViewDelegate {
   }
   public func timelinePager(timelinePager: TimelinePagerView, didUpdate event: EventDescriptor) {
     delegate?.dayView(dayView: self, didUpdate: event)
+  }
+  public func timelinePagerDidScroll(timelinePager: TimelinePagerView, diff: CGFloat) {
+      delegate?.dayViewDidScroll(dayView: self, diff: diff)
   }
 }
 #endif
