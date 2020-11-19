@@ -386,6 +386,26 @@ public final class TimelineView: UIView {
     }
   }
   
+//  private func layoutEvents() {
+//    if eventViews.isEmpty {return}
+//
+//    let a = regularLayoutAttributes.sorted{$0.descriptor.startDate < $1.descriptor.startDate }
+//    for (idx, attributes) in a.enumerated() {
+//      let descriptor = attributes.descriptor
+//      let eventView = eventViews[idx]
+//      eventView.frame = attributes.frame
+//
+//      let nextDescriptor = a.count > idx+1 ? a[idx+1].descriptor : nil
+//      let isConnectToEventBelow = nextDescriptor?.startDate == descriptor.endDate
+//
+//      eventView.frame = CGRect(x: attributes.frame.minX,
+//                               y: attributes.frame.minY,
+//                               width: attributes.frame.width - style.eventGap,
+//                               height: isConnectToEventBelow ? attributes.frame.height - style.eventGap: attributes.frame.height)
+//      eventView.updateWithDescriptor(event: descriptor)
+//    }
+//  }
+  
   private func layoutAllDayEvents() {
     //add day view needs to be in front of the nowLine
     bringSubviewToFront(allDayView)
